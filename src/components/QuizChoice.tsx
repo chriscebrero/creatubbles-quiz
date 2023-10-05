@@ -12,8 +12,7 @@ type QuizType = {
 const QuizChoice: React.FC<QuizType> = ({ choice, index, isLoading, isCorrect, isSelected }) => {
   return (
     <div className={
-        `
-        ${isCorrect && isLoading && 'bg-green-300'}
+        `${isCorrect && isLoading && 'bg-green-300'}
         ${isSelected && !isCorrect && isLoading && 'bg-red-500'}
         ${isSelected && !isLoading && 'bg-[#FDFD96]'}
         rounded-lg

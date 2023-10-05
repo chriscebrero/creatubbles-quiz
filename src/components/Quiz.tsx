@@ -1,5 +1,6 @@
 import React from 'react';
 import QuizChoice from './QuizChoice';
+import ResultsSummary from './ResultsSummary';
 
 type QuizSet = {
     question: string;
@@ -52,14 +53,14 @@ const Quiz = () => {
                 setActiveQuestion((prev) => prev + 1);
                 setTimer(10);
                 setLoading(false);
-                onClickNext();
+                handleNextQuestion();
             }, 4000)
         }
         
         if (timer === 0 && activeQuestion === questions.length - 1) {
             setLoading(true);
             setTimeout(() => {
-                onClickNext();
+                handleNextQuestion();
                 setShowResult(true);
             }, 4000)
         }
@@ -67,7 +68,7 @@ const Quiz = () => {
         return () => clearTimeout(timeout);
     }, [timer, isQuizActive, setQuizActive])
     
-    const onClickNext = () => {
+    const handleNextQuestion = () => {
         setSelectedAnswerIndex(-1)
         setResult((prev) =>
         selectedAnswer
@@ -106,8 +107,12 @@ const Quiz = () => {
             <div className="flex justify-center shadow-lg">
             <img className='w-80 h-80' src={imageUrl} alt="image_url"/>
             </div>
-            <h2 className="bg-black text-white rounded-2xl p-4 shadow-lg">{question}</h2>
-            <h3>Timer: {timer}</h3>
+            <h2 className="bg-black text-white rounded-2xl p-4 shadow-lg my-6">{question}</h2>
+            <div>
+                <h3>
+                    Timer: {timer} sec.
+                </h3>
+            </div>
             <ul>
             {options?.map((option: string, index: number) => 
                 <div>
@@ -119,21 +124,7 @@ const Quiz = () => {
                 </ul>
                 </div>
                 ) : (
-                    <div>
-                    <h3>Result</h3>
-                    <p>
-                    Total Question: <span>{questions.length}</span>
-                    </p>
-                    <p>
-                    Total Score:<span> {result.score}</span>
-                    </p>
-                    <p>
-                    Correct Answers:<span> {result.correctAnswers}</span>
-                    </p>
-                    <p>
-                    Wrong Answers:<span> {result.wrongAnswers}</span>
-                    </p>
-                    </div>
+                    <ResultsSummary totalQuestions={questions.length} correctAnswers={result.correctAnswers} wrongAnswers={result.wrongAnswers} totalScore={result.score}/>
                     )}
                     </div>
                     )
