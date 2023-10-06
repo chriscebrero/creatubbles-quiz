@@ -15,14 +15,15 @@ const Quiz = () => {
     const [selectedAnswer, setSelectedAnswer] = React.useState(false)
     const [showResult, setShowResult] = React.useState(false)
     const [selectedAnswerIndex, setSelectedAnswerIndex] = React.useState(-1)
+    const [isQuizActive, setQuizActive] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [timer, setTimer] = React.useState(10);
     const [result, setResult] = React.useState({
         score: 0,
         correctAnswers: 0,
         wrongAnswers: 0,
     })
-    const [isQuizActive, setQuizActive] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [timer, setTimer] = React.useState(10);
+    
     
     const {question, options, answer, imageUrl } = questions[activeQuestion] || {};
     
